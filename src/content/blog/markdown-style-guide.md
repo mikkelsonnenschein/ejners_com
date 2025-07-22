@@ -1,8 +1,18 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: 'Æterens ægte oringaler'
+year: '2022'
+role: 'Director, Script supervisor'
+video: '../../../public/video.mp4'
+still01: '../../assets/blog-placeholder-5.jpg'
+still02: '../../assets/blog-placeholder-5.jpg'
+still03: '../../assets/blog-placeholder-5.jpg'
+externalLink01text: 'IMDB'
+externalLink01: 'https://www.imdb.com/title/tt5563860/'
+externalLink02text: 'youtube'
+externalLink02: 'https://www.youtube.com/playlist?list=PLdJdJFLAYgZUH_SujZ0X6eZJC16e7yPGR'
+externalLink03text: 'DR'
+externalLink03: 'https://www.dr.dk/drtv/serie/aeterens-aegte-originaler_6753'
+featured: false
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

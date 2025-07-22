@@ -1,8 +1,18 @@
 ---
-title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: 'Æterens ægte oringaler'
+year: '2022'
+role: 'Director, Script supervisor'
+video: '../../../public/video.mp4'
+still01: '../../assets/blog-placeholder-5.jpg'
+still02: '../../assets/blog-placeholder-5.jpg'
+still03: '../../assets/blog-placeholder-5.jpg'
+externalLink01text: 'IMDB'
+externalLink01: 'https://www.imdb.com/title/tt5563860/'
+externalLink02text: 'youtube'
+externalLink02: 'https://www.youtube.com/playlist?list=PLdJdJFLAYgZUH_SujZ0X6eZJC16e7yPGR'
+externalLink03text: 'DR'
+externalLink03: 'https://www.dr.dk/drtv/serie/aeterens-aegte-originaler_6753'
+featured: false
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
