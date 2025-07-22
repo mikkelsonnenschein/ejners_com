@@ -1,5 +1,6 @@
 ---
-title: 'Æterens ægte oringaler'
+title: 'Æterens ægte oringaler01'
+description: 'Æterens ægte oringaler'
 year: '2022'
 role: 'Director, Script supervisor'
 video: '../../../public/video.mp4'

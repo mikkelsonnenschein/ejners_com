@@ -1,15 +1,17 @@
 ---
 import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+// import Header from '../../components/Header.astro';
+// import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
+// import FormattedDate from '../../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('blog')).sort((a, b) => {
+  const yearA = Number(a.data.year) || 0;
+  const yearB = Number(b.data.year) || 0;
+  return yearB - yearA;
+});
 ---
 
 <!doctype html>
@@ -87,7 +89,7 @@ const posts = (await getCollection('blog')).sort(
 		</style>
 	</head>
 	<body>
-		<Header />
+		<!-- <Header /> -->
 		<main>
 			<section>
 				<ul>
@@ -95,12 +97,12 @@ const posts = (await getCollection('blog')).sort(
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									{post.data.still01 && (
+										<Image width={720} height={360} src={post.data.still01} alt="" />
 									)}
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+										{post.data.year}
 									</p>
 								</a>
 							</li>
@@ -109,6 +111,6 @@ const posts = (await getCollection('blog')).sort(
 				</ul>
 			</section>
 		</main>
-		<Footer />
+		<!-- <Footer /> -->
 	</body>
 </html>
