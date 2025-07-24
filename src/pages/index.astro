@@ -21,14 +21,16 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 	</head>
 	<body>
 		<main>
-			<h1 class="accent">Ejner Seidelin</h1>
-			<p class="accent">Director · Cinematographer</p>
+			<div class="header">
+				<h1 class="accent">Ejner Seidelin</h1>
+				<p class="accent tagline">Director · Cinematographer</p>
+			</div>
 
 
 			{
 				posts.map((post) => (
 					post.data.featured? post.data.video && (
-						<video width="320" height="240" controls>
+						<video width="100%" height="auto" controls>
 							<source src={post.data.video} type="video/mp4"/>	
 						</video>					
 									) : null
@@ -36,25 +38,57 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			}
 
 
+			<table>
+				<thead>
+				<tr>
+					<th scope="col">Title</th>
+					<th scope="col">Year</th>
+					<th class="align-right" scope="col">Role</th>
+				</tr>
+				</thead>
+				<tbody>
+				{
+					posts.map((post) => (
+					<tr>
+						<td>
+							<a href={`/blog/${post.id}/`}>
+								{post.data.title}
+							</a>
+						</td>
+						<td class="accent-alt">{post.data.year}</td>
+						<td class="align-right accent-alt">{post.data.role}</td>
+					</tr>
+					))
+				}
+				</tbody>
+			</table>
+  
 
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{/* {post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)} */}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">{post.data.year}</p>
-									<p>{post.data.role}</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+
+			<!-- <section role="table" aria-label="List of films">
+				<div role="rowgroup" class="table-header">
+				<div role="columnheader">Title</div>
+				<div role="columnheader">Year</div>
+				<div role="columnheader">Role</div>
+				</div>
+			
+				<div role="rowgroup" class="table-body">
+				{
+					posts.map((post) => (
+					<div role="row" class="table-row">
+						<div role="cell">
+						<a href={`/blog/${post.id}/`} class="title-link">
+							{post.data.title}
+						</a>
+						</div>
+						<div role="cell">{post.data.year}</div>
+						<div role="cell">{post.data.role}</div>
+					</div>
+					))
+				}
+				</div>
+			</section> -->
+  
 
 		</main>
 	</body>
