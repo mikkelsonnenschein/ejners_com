@@ -1,10 +1,14 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import { getEntry } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 import { getCollection } from 'astro:content';
 // import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
+
+const aboutPost = await getEntry('blog', 'about');
 
 const posts = (await getCollection('blog')).sort((a, b) => {
   const yearA = Number(a.data.year) || 0;
@@ -20,22 +24,31 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
+		<Header/>
+		<!-- <div class="header">
+			<h1 class="accent">Ejner Seidelin</h1>
+			<p class="accent tagline">Director · Cinematographer</p>
+		</div> -->
 		<main>
-			<div class="header">
-				<h1 class="accent">Ejner Seidelin</h1>
-				<p class="accent tagline">Director · Cinematographer</p>
-			</div>
 
-
-			{
-				posts.map((post) => (
-					post.data.featured? post.data.video && (
-						<video width="100%" height="auto" controls>
-							<source src={post.data.video} type="video/mp4"/>	
-						</video>					
-									) : null
-				))
-			}
+			<div class="hero">
+				{
+				  posts.map((post) =>
+					post.data.featured && post.data.video ? (
+					  <div class="hero-item">
+						<video width="auto" height="auto" controls>
+						  <source src={post.data.video} type="video/mp4" />
+						</video>
+						<div class="hero-description">
+						  <p>{post.data.title} <span>({post.data.year})</span></p>
+						  <p class="accent-alt">~24mb</p>
+						</div>
+					  </div>
+					) : null
+				  )
+				}
+			  </div>
+			  
 
 
 			<table>
@@ -47,48 +60,32 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 				</tr>
 				</thead>
 				<tbody>
-				{
-					posts.map((post) => (
-					<tr>
-						<td>
-							<a href={`/blog/${post.id}/`}>
+					{
+					  posts
+						.filter((post) => post.data.title.toLowerCase() !== "about")
+						.map((post) => (
+						  <tr>
+							<td>
+							  <a href={`/blog/${post.id}/`}>
 								{post.data.title}
-							</a>
-						</td>
-						<td class="accent-alt">{post.data.year}</td>
-						<td class="align-right accent-alt">{post.data.role}</td>
-					</tr>
-					))
-				}
-				</tbody>
+							  </a>
+							</td>
+							<td class="accent-alt">{post.data.year}</td>
+							<td class="align-right accent-alt">{post.data.role}</td>
+						  </tr>
+						))
+					}
+				  </tbody>
 			</table>
   
-
-
-			<!-- <section role="table" aria-label="List of films">
-				<div role="rowgroup" class="table-header">
-				<div role="columnheader">Title</div>
-				<div role="columnheader">Year</div>
-				<div role="columnheader">Role</div>
-				</div>
-			
-				<div role="rowgroup" class="table-body">
-				{
-					posts.map((post) => (
-					<div role="row" class="table-row">
-						<div role="cell">
-						<a href={`/blog/${post.id}/`} class="title-link">
-							{post.data.title}
-						</a>
-						</div>
-						<div role="cell">{post.data.year}</div>
-						<div role="cell">{post.data.role}</div>
-					</div>
-					))
-				}
-				</div>
-			</section> -->
   
+			<section>
+				<div class="about-description">
+					<h2 class="accent-alt">{aboutPost.data.title}</h2>
+					<p>Lorem dolor</p> -->
+					
+				</div>
+			</section>
 
 		</main>
 	</body>

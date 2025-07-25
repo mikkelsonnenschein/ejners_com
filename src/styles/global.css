@@ -27,10 +27,9 @@ main {
 	/* width: 720px; */
 	max-width: calc(100% - 2em);
 	margin: 0px 112px 0px 112px;
-	padding: 3em 1em;
 	display: flex;
 	flex-direction: column;
-	gap: 48px;
+	gap: 120px;
 }
 h1,
 h2,
@@ -83,9 +82,36 @@ p {
 	letter-spacing: -1px;
 }
 
-.header {
+header {
+	margin: 48px 112px;
+}
+
+.hero {
+	display: flex;
+	gap: 1rem; /* optional spacing between video and text */
+}
+
+.hero-item {
+	display: flex;
+	width: 100%;
+}
+
+.hero-item video {
+	width: 75%;
+}
+
+.hero-description {
+	width: 25%;
+	color: var(--accent);
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 16px;
+	border-top: 4px solid var(--accent);
+	border-bottom: 4px solid var(--accent);
+	padding-top: 16px;
 
 }
+
 
 textarea {
 	width: 100%;
