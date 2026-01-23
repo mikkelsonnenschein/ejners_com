@@ -16,7 +16,8 @@ body {
 	padding: 0;
 	text-align: left;
 	background-color: var(--background);
-
+	display: grid;
+	justify-content: center;
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -25,8 +26,9 @@ body {
 }
 main {
 	/* width: 720px; */
-	max-width: calc(100% - 2em);
-	margin: 0px 112px 0px 112px;
+	/* max-width: calc(100% - 2em); */
+	max-width: 1920px;
+	/* margin: 0px 112px 0px 112px; */
 	display: flex;
 	flex-direction: column;
 	gap: 120px;
@@ -46,7 +48,9 @@ h1 {
 	letter-spacing: -1px;
 }
 h2 {
-	font-size: 48px;
+	font-size: 24px;
+	padding-bottom: 24px;
+	border-bottom: 6px solid var(--accent);
 	/* font-size: 2.441em; */
 }
 h3 {
@@ -83,7 +87,39 @@ p {
 }
 
 header {
-	margin: 48px 112px;
+	display: flex;
+	
+}
+
+.header-title {
+	font-size: 24px;
+	padding: 0px 12px 0px 16px;
+	text-transform: uppercase;
+	width: 100%;
+	align-content: center;
+}
+
+.header-title a{
+	text-decoration: none;
+}
+
+.header-nav {
+	display: flex;
+	width: 100%;
+	align-content: center;
+}
+
+.header-nav ul{
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	gap: 16px;
+	padding: 4px 16px 4px 0px;
+	margin: 0px;
+}
+
+.header-nav ul li a{
+	text-decoration: none;
 }
 
 .hero {
@@ -97,21 +133,44 @@ header {
 }
 
 .hero-item video {
-	width: 75%;
+	width: 100%;
 }
 
 .hero-description {
-	width: 25%;
+	color: var(--accent);
+}
+
+.about-section {
+	display: flex;
+	gap: 16px;
+}
+
+.about-body {
 	color: var(--accent);
 	font-size: 24px;
 	font-weight: bold;
-	margin-left: 16px;
-	border-top: 4px solid var(--accent);
-	border-bottom: 4px solid var(--accent);
-	padding-top: 16px;
-
 }
 
+.about-description {
+	width: 75%;
+}
+.about-links {
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.about-link-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+.about-link-list a{
+	width: 100%;
+	font-size: 24px;
+	font-weight: bold;
+	text-decoration: none;
+}
 
 textarea {
 	width: 100%;
@@ -134,10 +193,13 @@ th {
 	color: var(--accent-alt);
 	font-size: 24px;
 	font-weight: bold;
-	border-bottom: 4px solid var(--accent);
+	border-bottom: 6px solid var(--accent);
 	padding-bottom: 28px;
 }
 
+.table-thumbnail {
+	height: 48px;
+}
 
 tr a {
 	text-decoration: none;
@@ -160,6 +222,12 @@ table {
 	border-collapse: collapse;
 }
 
+.table-cell-content {
+	display: flex;
+	align-items: center; /* vertical alignment */
+	gap: 12px; /* space between image and link */
+  }
+  
 
 
 /* UTILITY */

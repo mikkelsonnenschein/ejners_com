@@ -1,14 +1,25 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import { getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 import { getCollection } from 'astro:content';
 // import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
 
+// Gets blog/about
 const aboutPost = await getEntry('blog', 'about');
+
+if (!aboutPost) {
+   // Handle Error, for example:
+  throw new Error('Could not find blog post 1');
+}
+
+// Rendering to allow for <Content />
+const { Content, headings} = await render(aboutPost);
+
+
 
 const posts = (await getCollection('blog')).sort((a, b) => {
   const yearA = Number(a.data.year) || 0;
@@ -31,6 +42,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 		</div> -->
 		<main>
 
+
 			<div class="hero">
 				{
 				  posts.map((post) =>
@@ -39,10 +51,9 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 						<video width="auto" height="auto" controls>
 						  <source src={post.data.video} type="video/mp4" />
 						</video>
-						<div class="hero-description">
-						  <p>{post.data.title} <span>({post.data.year})</span></p>
+						{/* <div class="hero-description">
 						  <p class="accent-alt">~24mb</p>
-						</div>
+						</div> */}
 					  </div>
 					) : null
 				  )
@@ -66,10 +77,16 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 						.map((post) => (
 						  <tr>
 							<td>
-							  <a href={`/blog/${post.id}/`}>
+							<div class="table-cell-content">
+								{post.data.still01 && (
+								<Image class="table-thumbnail" width={80} height={48} src={post.data.still01} alt="" />
+								)}
+								<a href={`/blog/${post.id}/`}>
 								{post.data.title}
-							  </a>
+								</a>
+							</div>
 							</td>
+
 							<td class="accent-alt">{post.data.year}</td>
 							<td class="align-right accent-alt">{post.data.role}</td>
 						  </tr>
@@ -79,11 +96,21 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			</table>
   
   
-			<section>
+			<section class="about-section">
 				<div class="about-description">
-					<h2 class="accent-alt">{aboutPost.data.title}</h2>
-					<p>Lorem dolor</p> -->
-					
+					<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
+					<h2 class="accent-alt">About</h2>
+					<div class="about-body">
+						<Content />
+					</div>
+				</div>
+				<div class="about-links">
+					<h2 class="accent-alt">Contact</h2>
+					<div class="about-link-list">
+						<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗️</span></a>
+						<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗️</span></a>
+						<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗️</span></a>
+					</div>
 				</div>
 			</section>
 

@@ -7,7 +7,7 @@ const blog = defineCollection({
 	// Type-check frontmatter using a schema
 	schema: ({ image }) => z.object({
 		title: z.string(),
-		description: z.string().optional(),
+		description: z.string(),
 		year: z.string().optional(),
 		role: z.string().optional(),
 		video: z.string().optional(),
