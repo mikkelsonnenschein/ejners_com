@@ -49,7 +49,8 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 					post.data.featured && post.data.video ? (
 					  <div class="hero-item">
 						<video width="auto" height="auto" controls>
-						  <source src={post.data.video} type="video/mp4" />
+						  {/* <source src={post.data.video} type="video/mp4" /> */}
+						  <source src={aboutPost?.data.video} type="video/mp4" />
 						</video>
 						{/* <div class="hero-description">
 						  <p class="accent-alt">~24mb</p>
@@ -61,55 +62,56 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			  </div>
 			  
 
-
-			<table>
-				<thead>
-				<tr>
-					<th scope="col">Title</th>
-					<th scope="col">Year</th>
-					<th class="align-right" scope="col">Role</th>
-				</tr>
-				</thead>
-				<tbody>
-					{
-					  posts
-						.filter((post) => post.data.title.toLowerCase() !== "about")
-						.map((post) => (
-						  <tr>
-							<td>
-							<div class="table-cell-content">
-								{post.data.still01 && (
-								<Image class="table-thumbnail" width={80} height={48} src={post.data.still01} alt="" />
-								)}
+			<div class="table-wrapper">
+				<table>
+					<thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Year</th>
+						<th scope="col">Role</th>
+						<th class="align-right" scope="col"></th>
+					</tr>
+					</thead>
+					<tbody>
+						{
+						posts
+							.filter((post) => post.data.title.toLowerCase() !== "about")
+							.map((post) => (
+							<tr>
 								<a href={`/blog/${post.id}/`}>
-								{post.data.title}
+								<td>{post.data.title}</td>
+								<td class="accent-alt">{post.data.year}</td>
+								<td class="accent-alt">{post.data.role}</td>
+								<td class="align-right accent-alt">[NEW]</td>
 								</a>
-							</div>
-							</td>
+							</tr>
+							))
+						}
+							<!-- {post.data.still01 && (
+								<Image class="table-thumbnail" width={80} height={48} src={post.data.still01} alt="" />
+								)} -->
 
-							<td class="accent-alt">{post.data.year}</td>
-							<td class="align-right accent-alt">{post.data.role}</td>
-						  </tr>
-						))
-					}
-				  </tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
   
   
-			<section class="about-section">
-				<div class="about-description">
-					<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
-					<h2 class="accent-alt">About</h2>
-					<div class="about-body">
-						<Content />
+			<section id="about-section" class="about-section">
+				<div class="about-wrapper">
+					<div class="about-description">
+						<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
+						<h2 class="accent-alt">About</h2>
+						<div class="about-body">
+							<Content />
+						</div>
 					</div>
-				</div>
-				<div class="about-links">
-					<h2 class="accent-alt">Contact</h2>
-					<div class="about-link-list">
-						<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗️</span></a>
-						<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗️</span></a>
-						<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗️</span></a>
+					<div class="about-links">
+						<h2 class="accent-alt">Contact</h2>
+						<div class="about-link-list">
+							<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a>
+							<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗</span></a>
+							<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>
+						</div>
 					</div>
 				</div>
 			</section>
