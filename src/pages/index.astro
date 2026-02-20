@@ -68,7 +68,8 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			<div class="hero">
 				<div class="hero-item">
 					<video width="auto" height="auto" controls>
-					  	<source src={aboutPost?.data.video} type="video/mp4" />
+					  	<!-- <source src={aboutPost?.data.video} type="video/mp4" /> -->
+					  	<source src={`${BASE}${aboutPost?.data.video}`} type="video/mp4" />
 					</video>
 				</div>
 			</div>
