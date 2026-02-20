@@ -442,7 +442,7 @@ td {
 }
 
 .title-col {
-	width: 70%;
+	width: 50%;
 }
 
 .title h1 {
@@ -547,6 +547,10 @@ tbody tr:first-child td {
 	.table-wrapper, .about-links {
 		padding-right: 8px;
 		padding-left: 8px;
+	}
+
+	.title-col {
+		width: 70%;
 	}
 
 	th:nth-child(2),
