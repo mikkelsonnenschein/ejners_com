@@ -1,11 +1,13 @@
 ---
-
+// Import the base from Astro configuration
+import config from '../../astro.config.mjs';
+const BASE = config.base || '/';
 ---
 
 <header>
 	<div class="header-wrapper">
 		<h1 class="header-title"> 
-			<a href="/" class="accent">Ejner Seidelin</a>
+			<a href={BASE} class="accent">Ejner Seidelin</a>
 		</h1>
 		<nav class="header-nav">
 			<ul>
