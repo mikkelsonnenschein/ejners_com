@@ -122,8 +122,8 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 										  <div class="details-content-container">
 											<p>{post.data.description}</p>
 											<a class="accent-alt underline bold" href={`${BASE}blog/${post.id}/`}>
-  Read more <span class="arrow">→</span>
-</a>
+  												Read more <span class="arrow">→</span>
+											</a>
 										  </div>
 							
 										  {post.data.still01 && (

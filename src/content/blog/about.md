@@ -1,7 +1,7 @@
 ---
 title: 'About'
 description: 'About Ejner Seidelin'
-video: '../../../public/placeholder_reel.mp4'
+video: '/placeholder_reel.mp4'
 externalLink01text: 'Mail'
 externalLink01: 'https://www.imdb.com/title/tt5563860/'
 externalLink02text: 'IMDB'
