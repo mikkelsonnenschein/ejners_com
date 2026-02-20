@@ -1,10 +1,10 @@
 ---
-title: 'Max Kapacitet'
+title: 'Æterens Ægte Originaler'
 description: 'Emil er taget til NFT konference i Miami for at undersøge markedet og blive klogere på NFT fænomenet. 
 17-årige  Frej køber sin første bil for kryptovaluta, og firmaet Intree sætter deres første NFT til salg, men det går ikke helt som planlagt.'
-year: '2024'
+year: '2026'
 role: 'Director, Script supervisor'
-vimeoID: '1009202733'
+vimeoID: '1159177842'
 still01: '../../assets/blog-placeholder-1.jpg'
 still02: '../../assets/blog-placeholder-2.jpg'
 still03: '../../assets/blog-placeholder-7.jpg'
@@ -17,8 +17,8 @@ externalLink02text: 'youtube'
 externalLink02: 'https://www.youtube.com/playlist?list=PLdJdJFLAYgZUH_SujZ0X6eZJC16e7yPGR'
 externalLink03text: 'DR'
 externalLink03: 'https://www.dr.dk/drtv/serie/aeterens-aegte-originaler_6753'
-ny: true
-upcoming: false
+ny: false
+upcoming: true
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.

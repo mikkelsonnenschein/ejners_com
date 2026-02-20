@@ -8,8 +8,17 @@ import { Image } from 'astro:assets';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, year, role, video, vimeoID, still01, still02, still03, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03} = Astro.props;
+const { title, description, year, role, video, vimeoID, still01, still02, still03, still04, still05, still06, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03, ny, upcoming} = Astro.props;
+const stills = [
+  still01,
+  still02,
+  still03,
+  still04,
+  still05,
+  still06
+].filter((s): s is NonNullable<typeof s> => Boolean(s));
 ---
+
 
 <html lang="en">
 	<head>
@@ -58,31 +67,105 @@ const { title, description, year, role, video, vimeoID, still01, still02, still0
 	<body>
 		<Header/>
 		
-		<main>
-			<article>
+		<main class="blog-main">
 				<div class="blog-video">
 					<!-- {still01 && <Image width={1020} height={510} src={still01} alt="" />} -->
 					<!-- <iframe title="vimeo-player" src="https://player.vimeo.com/video/1009202733?h=8fa1fe3e88" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> -->
 					<iframe 
-						title="vimeo-player" 
+						title="vimeo-player"
 						src=`https://player.vimeo.com/video/${vimeoID}?h=8fa1fe3e88` 
+						frameborder="0"
 						referrerpolicy="strict-origin-when-cross-origin" 
 						allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   
 						allowfullscreen>
 					</iframe>
 				</div>
-				<div class="prose">
+				<div class="blog-content">
 					<div class="title">
-						<div class="date">
-							{year}
-						</div>
+						<!-- <div class="date">{year}</div> -->
 						<h1>{title}</h1>
-						<hr />
+						{ny? <span class="badge-new">New</span> : null}
+						{upcoming? <span class="badge-upcoming">Upcoming</span> : null}
 					</div>
-					<slot />
+
+					<section id="description-section" class="description-section">
+						<div class="description-wrapper">
+							<div class="about-description">
+								<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
+								<h2 class="accent-alt">Description</h2>
+								<div class="about-body">
+									<slot />
+								</div>
+							</div>
+							<div class="about-links">
+								<h2 class="accent-alt">About</h2>
+								<div class="about-link-list">
+									<p>{role} ({year})</p>
+									<a href={externalLink01} class="accent-alt">{externalLink01text}<span> ↗</span></a>
+									<a href={externalLink02} class="accent-alt">{externalLink02text}<span> ↗</span></a>
+									<a href={externalLink03} class="accent-alt">{externalLink03text}<span> ↗</span></a>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Stills section -->
+					{stills.length > 0 && (
+						<section class="stills-section">
+						  <div class="stills-wrapper">
+							<h2 class="accent-alt">Stills</h2>
+					  
+							<div class="stills">
+							  {stills.map((still) => (
+								<div class="still">
+									<Image width={1020} height={510} src={still} alt="" />
+									</div>
+							  ))}
+							</div>
+						  </div>
+						</section>
+					  )}
+
+					<!-- Lightbox -->
+					<div id="lightbox" class="lightbox">
+						<button class="lightbox-close">×</button>
+						<img id="lightbox-img" src="" alt="" />
+					</div>
+
 				</div>
-			</article>
 		</main>
-		<!-- <Footer /> -->
+		<script is:inline>
+			const lightbox = document.getElementById('lightbox');
+			const lightboxImg = document.getElementById('lightbox-img');
+			const closeBtn = document.querySelector('.lightbox-close');
+		  
+			document.querySelectorAll('.still img').forEach((img) => {
+			  img.addEventListener('click', () => {
+				if (!lightbox || !lightboxImg) return;
+				lightboxImg.src = img.src;
+				lightbox.classList.add('open');
+			  });
+			});
+		  
+			closeBtn?.addEventListener('click', () => {
+			  lightbox?.classList.remove('open');
+			});
+		  
+			lightbox?.addEventListener('click', (e) => {
+			  if (e.target === lightbox) {
+				lightbox.classList.remove('open');
+			  }
+			});
+		  
+			// --- ESC key listener ---
+			document.addEventListener('keydown', (e) => {
+			  if (e.key === 'Escape') {
+				lightbox?.classList.remove('open');
+			  }
+			});
+		  </script>
 	</body>
+	
 </html>
+
+

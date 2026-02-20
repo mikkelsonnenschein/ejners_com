@@ -106,7 +106,10 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 							
 									  <td class="accent-body">{post.data.year}</td>
 									  <td class="accent-accent-body">{post.data.role}</td>
-									  <td class="align-right accent-body">[NEW]</td>
+									  <td class="badge-cell align-right accent-body">
+										{post.data.ny? <span class="badge-new">New</span> : null}
+										{post.data.upcoming? <span class="badge-upcoming">Upcoming</span> : null}
+									  </td>
 									</tr>
 							
 									{/* Content inside accordion */}
@@ -119,7 +122,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 											  class="accent-alt underline bold"
 											  href={`/blog/${post.id}/`}
 											>
-											  Read more →
+											  Read more <span class="arrow">→</span>
 											</a>
 										  </div>
 							
