@@ -43,7 +43,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 		<main>
 
 
-			<div class="hero">
+			<!-- <div class="hero">
 				{
 				  posts.map((post) =>
 					post.data.featured && post.data.video ? (
@@ -59,42 +59,112 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 					) : null
 				  )
 				}
-			  </div>
+			  </div> -->
+
+
+			<div class="hero">
+				<div class="hero-item">
+					<video width="auto" height="auto" controls>
+					  	<source src={aboutPost?.data.video} type="video/mp4" />
+					</video>
+				</div>
+			</div>
 			  
 
 			<div class="table-wrapper">
 				<table>
 					<thead>
 					<tr>
-						<th scope="col">Title</th>
+						<th scope="col" class="title-col">Title</th>
 						<th scope="col">Year</th>
-						<th scope="col">Role</th>
+						<th scope="col" class="role-col">Role</th>
 						<th class="align-right" scope="col"></th>
 					</tr>
 					</thead>
 					<tbody>
 						{
-						posts
-							.filter((post) => post.data.title.toLowerCase() !== "about")
-							.map((post) => (
-							<tr>
-								<a href={`/blog/${post.id}/`}>
-								<td>{post.data.title}</td>
-								<td class="accent-alt">{post.data.year}</td>
-								<td class="accent-alt">{post.data.role}</td>
-								<td class="align-right accent-alt">[NEW]</td>
-								</a>
-							</tr>
-							))
-						}
-							<!-- {post.data.still01 && (
-								<Image class="table-thumbnail" width={80} height={48} src={post.data.still01} alt="" />
-								)} -->
+							posts
+							  .filter((post) => post.data.title.toLowerCase() !== "about")
+							  .map((post, index) => {
+								const detailsId = `details-${index}`;
+							
+								return (
+								  <>
+									<tr class="toprow">
+									  <td>
+										<button
+										  class="toggle-btn accent-body"
+										  aria-expanded="false"
+										  aria-controls={detailsId}
+										>
+										  {post.data.title}
+										  <span class="visually-hidden">
+											Toggle details for {post.data.title}
+										  </span>
+										</button>
+									  </td>
+							
+									  <td class="accent-body">{post.data.year}</td>
+									  <td class="accent-accent-body">{post.data.role}</td>
+									  <td class="align-right accent-body">[NEW]</td>
+									</tr>
+							
+									{/* Content inside accordion */}
+									<tr id={detailsId} hidden>
+									  <td colspan="4">
+										<div class="details-content">
+										  <div class="details-content-container">
+											<p>{post.data.description}</p>
+											<a
+											  class="accent-alt underline bold"
+											  href={`/blog/${post.id}/`}
+											>
+											  Read more →
+											</a>
+										  </div>
+							
+										  {post.data.still01 && (
+											<Image
+											  class="table-thumbnail"
+											  width={824}
+											  height={460}
+											  src={post.data.still01}
+											  alt=""
+											/>
+										  )}
+										</div>
+									  </td>
+									</tr>
+								  </>
+								);
+							  })
+							}
+							
+							
 
 					</tbody>
 				</table>
 			</div>
   
+			<script>
+				document.querySelectorAll(".toggle-btn").forEach(button => {
+				  button.addEventListener("click", () => {
+					const expanded =
+					  button.getAttribute("aria-expanded") === "true";
+				
+					const id = button.getAttribute("aria-controls");
+				
+					if (!id) return; // safety guard
+				
+					const content = document.getElementById(id);
+					if (!content) return;
+				
+					button.setAttribute("aria-expanded", String(!expanded));
+					content.hidden = expanded;
+				  });
+				});
+				</script>
+				
   
 			<section id="about-section" class="about-section">
 				<div class="about-wrapper">
@@ -106,7 +176,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 						</div>
 					</div>
 					<div class="about-links">
-						<h2 class="accent-alt">Contact</h2>
+						<h2 class="accent-alt">Links</h2>
 						<div class="about-link-list">
 							<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a>
 							<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗</span></a>

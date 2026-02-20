@@ -1,14 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-// import Header from '../components/Header.astro';
+import Header from '../components/Header.astro';
 // import Footer from '../components/Footer.astro';
 // import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, year, role, video, still01, still02, still03, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03 } = Astro.props;
+const { title, description, year, role, video, vimeoID, still01, still02, still03, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03} = Astro.props;
 ---
 
 <html lang="en">
@@ -56,10 +56,20 @@ const { title, description, year, role, video, still01, still02, still03, extern
 	</head>
 
 	<body>
+		<Header/>
+		
 		<main>
 			<article>
-				<div class="hero-image">
-					{still01 && <Image width={1020} height={510} src={still01} alt="" />}
+				<div class="blog-video">
+					<!-- {still01 && <Image width={1020} height={510} src={still01} alt="" />} -->
+					<!-- <iframe title="vimeo-player" src="https://player.vimeo.com/video/1009202733?h=8fa1fe3e88" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> -->
+					<iframe 
+						title="vimeo-player" 
+						src=`https://player.vimeo.com/video/${vimeoID}?h=8fa1fe3e88` 
+						referrerpolicy="strict-origin-when-cross-origin" 
+						allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   
+						allowfullscreen>
+					</iframe>
 				</div>
 				<div class="prose">
 					<div class="title">

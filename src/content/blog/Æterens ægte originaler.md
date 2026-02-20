@@ -1,9 +1,9 @@
 ---
-title: 'Æterens ægte oringaler02'
-description: 'Æterens ægte oringaler'
+title: 'Æterens ægte oringaler'
+description: 'Emil er taget til NFT konference i Miami for at undersøge markedet og blive klogere på NFT fænomenet. 
+17-årige  Frej køber sin første bil for kryptovaluta, og firmaet Intree sætter deres første NFT til salg, men det går ikke helt som planlagt.'
 year: '2022'
 role: 'Director, Script supervisor'
-video: '../../../public/video.mp4'
 still01: '../../assets/blog-placeholder-5.jpg'
 still02: '../../assets/blog-placeholder-5.jpg'
 still03: '../../assets/blog-placeholder-5.jpg'
@@ -13,7 +13,7 @@ externalLink02text: 'youtube'
 externalLink02: 'https://www.youtube.com/playlist?list=PLdJdJFLAYgZUH_SujZ0X6eZJC16e7yPGR'
 externalLink03text: 'DR'
 externalLink03: 'https://www.dr.dk/drtv/serie/aeterens-aegte-originaler_6753'
-featured: false
+upcoming: true
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
