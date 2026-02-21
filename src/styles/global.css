@@ -514,6 +514,7 @@ tbody tr:first-child td {
 		font-size: 16px;
 	}
 
+
 	.hero-item {
 		height: 100vh;        /* viewport crop size */
 		overflow: hidden;     /* hide overflow */
@@ -530,6 +531,12 @@ tbody tr:first-child td {
 	  }
 
 
+	header {	
+		position: sticky;
+		background: none;
+		top: 0px;
+		z-index: 9999;
+	}
 
 	.header-title {
 		font-size: 16px;
