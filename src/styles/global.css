@@ -552,7 +552,10 @@ tbody tr:first-child td {
 		display: none;
 	}
 
-	.header-mobile {
+	.header-mobile a {
+		font-size: 20px !important;
+	}
+	.header-mobile{
 		display: flex;
 	}
 
