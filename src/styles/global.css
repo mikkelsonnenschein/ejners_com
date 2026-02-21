@@ -111,6 +111,10 @@ header {
 	align-content: center;
 }
 
+.header-mobile {
+	display: none;
+}
+
 .header-title a{
 	text-decoration: none;
 }
@@ -525,14 +529,30 @@ tbody tr:first-child td {
 		object-fit: cover;
 	  }
 
+
+
 	.header-title {
 		font-size: 16px;
 		padding-left: 8px;
 	}
 
 	.header-nav ul {
-		padding-right: 8px;
+		padding: 8px 8px 8px 0px;
 		gap: 8px;
+		
+	}
+
+	.header-about, .header-contact {
+		display: none;
+	}
+
+	.header-mobile {
+		display: flex;
+	}
+
+	header a {
+		font-size: 18px;
+		line-height: 1;
 	}
 
 	a {
