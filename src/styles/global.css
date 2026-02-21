@@ -76,10 +76,12 @@ b {
 	font-weight: 700;
 }
 a {
-	color: var(--accent);
+	/* color: var(--accent); */
+	color: black;
 }
 a:hover {
-	color: var(--accent);
+	/* color: var(--accent); */
+	color: black;
 }
 p {
 	font-size: 24px;
@@ -112,6 +114,7 @@ header {
 	text-transform: uppercase;
 	width: 100%;
 	align-content: center;
+	font-weight: 900;
 }
 
 .header-mobile {
@@ -504,10 +507,12 @@ tbody tr:first-child td {
 	font-weight: 700;
 }
 
+
+
 @media (max-width: 720px) {
-	body {
+	/* body {
 		font-size: 18px;
-	}
+	} */
 
 	main {
 		gap: 48px;
@@ -534,7 +539,7 @@ tbody tr:first-child td {
 
 
 	.header-title {
-		font-size: 18px;
+		font-size: 20px;
 		padding-left: 8px;
 	}
 
@@ -553,7 +558,7 @@ tbody tr:first-child td {
 	}
 
 	header a {
-		font-size: 18px;
+		font-size: 20px;
 		line-height: 1;
 	}
 
