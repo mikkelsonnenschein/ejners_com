@@ -656,7 +656,8 @@ tbody tr:first-child td {
 
 	.about-wrapper {
 		flex-direction: column;
-		padding-bottom: 48px;
+		padding-bottom: 96px;
+		gap: 48px;
 	}
 
 	.about-link-list a {
