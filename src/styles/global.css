@@ -85,7 +85,7 @@ a {
 }
 a:hover {
 	/* color: var(--accent); */
-	color: black;
+	color: var(--background);
 }
 p {
 	font-size: 24px;
@@ -207,7 +207,7 @@ li {
 
 .badge-new {
 	background-color:var(--accent-alt);
-	color: black;
+	color: var(--background);
 	padding-left: 4px;
 	padding-right: 4px;
 	font-size: 24px;
@@ -221,7 +221,7 @@ li {
 
 .badge-upcoming {
 	background-color:var(--accent);
-	color: black;
+	color: var(--background);
 	padding-left: 4px;
 	padding-right: 4px;
 	font-size: 24px;
@@ -609,12 +609,16 @@ tbody tr:first-child td {
 		position: relative;
 	  }
 	
-	  .row-link {
-		display: block;
-		position: absolute;
-		inset: 0;
-		z-index: 2;
-	  }
+	.toprow td {
+		position: relative;
+	}
+
+	.row-link {
+	display: block;
+	position: absolute;
+	inset: 0;
+	z-index: 20;
+	}
 
 
 	.title-col {
