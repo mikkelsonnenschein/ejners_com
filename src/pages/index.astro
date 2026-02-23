@@ -95,25 +95,29 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 								return (
 								  <>
 									<tr class="toprow">
-									  <td>
-										<button
-										  class="toggle-btn accent-body"
-										  aria-expanded="false"
-										  aria-controls={detailsId}
-										>
-										  {post.data.title}
-										  <span class="visually-hidden">
-											Toggle details for {post.data.title}
-										  </span>
-										</button>
-									  </td>
-							
-									  <td class="accent-body">{post.data.year}</td>
-									  <td class="accent-accent-body">{post.data.role}</td>
-									  <td class="badge-cell align-right accent-body">
-										{post.data.ny? <span class="badge-new">New</span> : null}
-										{post.data.upcoming? <span class="badge-upcoming">Upcoming</span> : null}
-									  </td>
+										<td class="link-cell">
+											{/* Mobile full-row link */}
+											<a
+											class="row-link"
+											href={`${BASE}blog/${post.id}/`}
+											aria-label={`Read more about ${post.data.title}`}
+											/>
+
+											<button
+											class="toggle-btn accent-body"
+											aria-expanded="false"
+											aria-controls={detailsId}
+											>
+											{post.data.title}
+											</button>
+										</td>
+
+										<td class="accent-body">{post.data.year}</td>
+										<td class="accent-accent-body">{post.data.role}</td>
+										<td class="badge-cell align-right accent-body">
+											{post.data.ny && <span class="badge-new">New</span>}
+											{post.data.upcoming && <span class="badge-upcoming">Upcoming</span>}
+										</td>
 									</tr>
 							
 									{/* Content inside accordion */}
