@@ -533,7 +533,7 @@ tbody tr:first-child td {
 		padding-right: 8px;
 	}
 	.title h1 {
-		font-size: 28px;
+		font-size: 32px;
 	}
 
 	h2, p {
@@ -587,6 +587,10 @@ tbody tr:first-child td {
 		gap: 40px;
 	}
 
+	.blog-video {
+		margin-top: 44px;
+	}
+
 	a {
 		font-size: 16px;
 	}
@@ -603,6 +607,10 @@ tbody tr:first-child td {
 
 	.description-wrapper {
 		flex-direction: column;
+	}
+
+	#description-section {
+		margin-top: 24px;
 	}
 
 	.toprow {
@@ -639,6 +647,7 @@ tbody tr:first-child td {
 
 	.badge-new, .badge-upcoming {
 		font-size: 20px;
+		margin-top: 2px;
 	}
 
 	.about-description {
@@ -661,6 +670,10 @@ tbody tr:first-child td {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	}
 
+	.stills-section {
+		margin-left: 8px;
+		margin-right: 8px;
+	}
 }
 
 
