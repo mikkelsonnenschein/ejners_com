@@ -56,7 +56,7 @@ h1 {
 h2 {
 	font-size: 28px;
 	padding-bottom: 24px;
-	border-bottom: 4px solid var(--accent);
+	border-bottom: 6px solid var(--accent);
 	/* font-size: 2.441em; */
 }
 h3 {
@@ -155,6 +155,7 @@ li {
 	display: flex;
 	gap: 1rem; /* optional spacing between video and text */
 	width: 100%;
+	/* margin-top: 60px; */
 }
 
 .hero-item {
@@ -198,6 +199,7 @@ li {
 
 .blog-main {
 	gap: 80px;
+	margin-top: 60px;
 }
 
 .badge-cell {
@@ -474,7 +476,7 @@ tbody tr:first-child td {
   
 
 .toprow {
-	border-top: 4px solid var(--accent);
+	border-top: 6px solid var(--accent);
 }
 
 /* hidden by default (desktop) */
@@ -579,7 +581,7 @@ tbody tr:first-child td {
 	}
 
 	header a {
-		font-size: 28px;
+		font-size: 20px;
 		line-height: 1;
 	}
 
@@ -587,9 +589,9 @@ tbody tr:first-child td {
 		gap: 40px;
 	}
 
-	.blog-video {
+	/* .blog-video {
 		margin-top: 44px;
-	}
+	} */
 
 	a {
 		font-size: 16px;
@@ -621,6 +623,15 @@ tbody tr:first-child td {
 		position: relative;
 	}
 
+	td {
+		padding-top: 10px;
+		padding-bottom: 16px;
+	}
+
+	tbody tr:first-child td {
+		padding-top: 10px;
+	}
+
 	.row-link {
 	display: block;
 	position: absolute;
@@ -647,7 +658,7 @@ tbody tr:first-child td {
 
 	.badge-new, .badge-upcoming {
 		font-size: 20px;
-		margin-top: 2px;
+		margin-top: 12px;
 	}
 
 	.about-description {
