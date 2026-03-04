@@ -613,7 +613,7 @@ tbody tr:first-child td {
 	}
 
 	#description-section {
-		margin-top: 24px;
+		margin-top: 0px;
 	}
 
 	.toprow {
@@ -659,11 +659,19 @@ tbody tr:first-child td {
 
 	.badge-new, .badge-upcoming {
 		font-size: 24px;
+		margin-top: 6px;
+	}
+
+	#blog-badge {
 		margin-top: 2px;
 	}
 
 	.about-description {
 		padding-left: 8px;
+	}
+
+	.description-header {
+		display: none;
 	}
 
 	.about-wrapper {

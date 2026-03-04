@@ -84,7 +84,7 @@ const stills = [
 					<div class="title">
 						<!-- <div class="date">{year}</div> -->
 						<h1>{title}</h1>
-						{ny? <span class="badge-new">New</span> : null}
+						{ny? <span id="blog-badge" class="badge-new">New</span> : null}
 						{upcoming? <span class="badge-upcoming">Upcoming</span> : null}
 					</div>
 
@@ -92,7 +92,7 @@ const stills = [
 						<div class="description-wrapper">
 							<div class="about-description">
 								<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
-								<h2 class="accent-alt">Description</h2>
+								<h2 class="accent-alt description-header">Description</h2>
 								<div class="about-body">
 									<slot />
 								</div>
