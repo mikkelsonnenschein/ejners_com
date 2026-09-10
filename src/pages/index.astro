@@ -23,6 +23,8 @@ const { Content, headings} = await render(aboutPost);
 import config from '../../astro.config.mjs';
 const BASE = config.base || '/';
 
+import chevronDown from '../assets/chevron-down.svg';
+
 
 const posts = (await getCollection('blog')).sort((a, b) => {
   const yearA = Number(a.data.year) || 0;
@@ -43,7 +45,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			<h1 class="accent">Ejner Seidelin</h1>
 			<p class="accent tagline">Director · Cinematographer</p>
 		</div> -->
-		<main>
+		<main class="index-main">
 
 
 			<!-- <div class="hero">
@@ -79,10 +81,11 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 				<table>
 					<thead>
 					<tr>
+						<th scope="col" class="year-col">Year</th>
 						<th scope="col" class="title-col">Title</th>
-						<th scope="col">Year</th>
 						<th scope="col" class="role-col">Role</th>
-						<th class="align-right" scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col" class="chevron-col"></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -94,35 +97,41 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 							
 								return (
 								  <>
-									<tr class="toprow">
-										<td class="link-cell">
-											{/* Mobile full-row link */}
-											<a
-											class="row-link"
-											href={`${BASE}blog/${post.id}/`}
-											aria-label={`Read more about ${post.data.title}`}
-											/>
+								<tr
+									class="toprow"
+									role="button"
+									tabindex="0"
+									aria-expanded="false"
+									aria-controls={detailsId}
+								>
+									<td class="year-cell accent-body">{post.data.year}</td>
 
-											<button
-											class="toggle-btn accent-body"
-											aria-expanded="false"
-											aria-controls={detailsId}
-											>
-											{post.data.title}
-											</button>
-										</td>
+									<td class="link-cell">
+										{/* Mobile full-row link */}
+										<a
+										class="row-link"
+										href={`${BASE}blog/${post.id}/`}
+										aria-label={`Read more about ${post.data.title}`}
+										/>
 
-										<td class="accent-body">{post.data.year}</td>
-										<td class="accent-accent-body">{post.data.role}</td>
-										<td class="badge-cell align-right accent-body">
-											{post.data.ny && <span class="badge-new">New</span>}
-											{post.data.upcoming && <span class="badge-upcoming">Upcoming</span>}
-										</td>
-									</tr>
+										<span class="toggle-btn accent-body">
+										{post.data.title}
+										</span>
+									</td>
+
+									<td class="accent-body">{post.data.role}</td>
+									<td class="badge-cell accent-body">
+										{post.data.ny && <span class="badge-new">New</span>}
+										{post.data.upcoming && <span class="badge-upcoming">Upcoming</span>}
+									</td>
+									<td class="chevron-cell">
+										<img class="chevron-icon" src={chevronDown.src} alt="" aria-hidden="true" />
+									</td>
+								</tr>
 							
 									{/* Content inside accordion */}
 									<tr id={detailsId} hidden>
-									  <td colspan="4">
+									  <td colspan="5">
 										<div class="details-content">
 										  <div class="details-content-container">
 											<p>{post.data.description}</p>
@@ -132,13 +141,15 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 										  </div>
 							
 										  {post.data.still01 && (
-											<Image
-											  class="table-thumbnail"
-											  width={824}
-											  height={460}
-											  src={post.data.still01}
-											  alt=""
-											/>
+											<a href={`${BASE}blog/${post.id}/`} class="table-thumbnail-link" aria-label={`Read more about ${post.data.title}`}>
+												<Image
+												  class="table-thumbnail"
+												  width={824}
+												  height={460}
+												  src={post.data.still01}
+												  alt=""
+												/>
+											</a>
 										  )}
 										</div>
 									  </td>
@@ -155,20 +166,33 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 			</div>
   
 			<script>
-				document.querySelectorAll(".toggle-btn").forEach(button => {
-				  button.addEventListener("click", () => {
-					const expanded =
-					  button.getAttribute("aria-expanded") === "true";
-				
-					const id = button.getAttribute("aria-controls");
-				
-					if (!id) return; // safety guard
-				
-					const content = document.getElementById(id);
-					if (!content) return;
-				
-					button.setAttribute("aria-expanded", String(!expanded));
+				document.querySelectorAll<HTMLTableRowElement>(".toprow").forEach(row => {
+				  const id = row.getAttribute("aria-controls");
+
+				  if (!id) return; // safety guard
+
+				  const content = document.getElementById(id);
+				  if (!content) return;
+
+				  const toggle = () => {
+					const expanded = row.getAttribute("aria-expanded") === "true";
+					row.setAttribute("aria-expanded", String(!expanded));
 					content.hidden = expanded;
+				  };
+
+				  row.addEventListener("click", (event) => {
+					// Mobile rows are covered by a direct link (.row-link);
+					// let that navigate instead of toggling the accordion.
+					const target = event.target as HTMLElement | null;
+					if (target?.closest("a")) return;
+					toggle();
+				  });
+
+				  row.addEventListener("keydown", (event) => {
+					if (event.key === "Enter" || event.key === " ") {
+					  event.preventDefault();
+					  toggle();
+					}
 				  });
 				});
 				</script>
@@ -178,21 +202,42 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 				<div class="about-wrapper">
 					<div class="about-description">
 						<!-- <h2 class="accent-alt">{aboutPost?.data.title}</h2> -->
-						<h2 class="accent-alt">About</h2>
-						<div class="about-body">
+						<h2 class="accent-alt">Bio</h2>
+						<div id="bio-body" class="about-body">
 							<Content />
 						</div>
 					</div>
 					<div class="about-links">
-						<h2 class="accent-alt">Links</h2>
+						<h2 class="accent-alt">Contact</h2>
 						<div class="about-link-list">
+							<img src="/src/assets/ejner-seidelin_profile-picture.png">
 							<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a>
 							<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗</span></a>
-							<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>
+							<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>							
+							<div class="about-body accent-alt">– <br> ejner.seidelin@gmail.com</div>
 						</div>
 					</div>
 				</div>
 			</section>
+
+			<script>
+				document.querySelectorAll("#bio-body p").forEach((p) => {
+				  const lines = (p.textContent ?? "")
+					.split("\n")
+					.map((line) => line.trim())
+					.filter(Boolean);
+
+				  if (lines.length <= 1) return;
+
+				  const frag = document.createDocumentFragment();
+				  lines.forEach((line) => {
+					const newP = document.createElement("p");
+					newP.textContent = line;
+					frag.appendChild(newP);
+				  });
+				  p.replaceWith(frag);
+				});
+				</script>
 
 		</main>
 	</body>

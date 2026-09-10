@@ -155,6 +155,7 @@ li {
 	display: flex;
 	gap: 1rem; /* optional spacing between video and text */
 	width: 100%;
+	max-width: 1512px;
 	/* margin-top: 60px; */
 }
 
@@ -174,6 +175,7 @@ li {
 .blog-video {
 	position: relative;
 	width: 100%;
+	max-width: 1512px;
 	padding-top: 56.25%; /* 16:9 ratio */
 }
 
@@ -200,6 +202,10 @@ li {
 .blog-main {
 	gap: 80px;
 	margin-top: 60px;
+}
+
+.index-main {
+	padding-bottom: 120px;
 }
 
 .badge-cell {
@@ -235,6 +241,22 @@ li {
 	width: fit-content;
 }
 
+.toprow:hover .badge-new,
+.toprow:hover .badge-upcoming,
+.toprow:focus-visible .badge-new,
+.toprow:focus-visible .badge-upcoming {
+	animation: spin-vertical 2s linear infinite;
+}
+
+@keyframes spin-vertical {
+	from {
+		transform: perspective(600px) rotateY(0deg);
+	}
+	to {
+		transform: perspective(600px) rotateY(360deg);
+	}
+}
+
 .hero-description {
 	color: var(--accent);
 }
@@ -251,6 +273,25 @@ li {
 	margin-top: 60px;
 }
 
+.blog-footer-divider {
+	margin-left: 16px;
+	margin-right: 16px;
+	margin-top: 80px;
+	padding-bottom: 80px;
+	border-top: 6px solid var(--accent);
+}
+
+.blog-footer {
+	min-height: 120px;
+	margin-left: 16px;
+	margin-right: 16px;
+	display: flex;
+	flex-wrap: wrap-reverse;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
 .stills {
 	margin-top: 36px;
 	margin-bottom: 36px;
@@ -262,6 +303,13 @@ li {
 .still {
 	aspect-ratio: 16 / 9;
 	overflow: hidden;
+	cursor: pointer;
+  }
+
+  .still:hover,
+  .still:focus-visible {
+	outline: 5px solid var(--accent-alt);
+	outline-offset: -5px;
   }
 
   .still img {
@@ -287,22 +335,58 @@ li {
   }
   
   /* Image */
-  .lightbox img {
+  #lightbox-img {
 	max-width: 90vw;
 	max-height: 90vh;
 	object-fit: contain;
   }
-  
+
   /* Close button */
   .lightbox-close {
 	position: absolute;
 	top: 1rem;
 	right: 1.5rem;
-	font-size: 2rem;
 	background: none;
-	color: white;
 	border: none;
 	cursor: pointer;
+	padding: 12px;
+  }
+
+  .lightbox-close-icon {
+	width: 24px;
+	height: 24px;
+  }
+
+  /* Prev/next buttons */
+  .lightbox-nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 12px;
+  }
+
+  .lightbox-prev {
+	left: 1rem;
+  }
+
+  .lightbox-next {
+	right: 1rem;
+  }
+
+  .lightbox-nav-icon {
+	width: 32px;
+	height: 32px;
+  }
+
+  .lightbox-prev .lightbox-nav-icon {
+	transform: rotate(90deg);
+  }
+
+  .lightbox-next .lightbox-nav-icon {
+	transform: rotate(-90deg);
   }
 
 .about-wrapper, .description-wrapper {
@@ -315,6 +399,14 @@ li {
 	color: var(--accent);
 	font-size: 28px;
 	/* font-weight: bold; */
+}
+
+#bio-body p {
+	margin: 0;
+}
+
+#bio-body p:not(:first-of-type) {
+	margin-top: 16px;
 }
 
 .about-description {
@@ -392,10 +484,10 @@ th {
 }
 
 .toggle-btn {
+	display: block;
 	background: none;
 	border: none;
 	font: inherit;
-	cursor: pointer;
 	text-align: left;
 	width: 100%;
 	color: var(--accent-body);
@@ -404,6 +496,11 @@ th {
 
   .toprow:hover td{
 	color: var(--accent-alt);
+  }
+
+  .table-thumbnail-link {
+	display: block;
+	cursor: pointer;
   }
 
   .table-thumbnail {
@@ -457,8 +554,16 @@ td {
 	/* justify-content: space-between; */
 }
 
+.year-col {
+	width: 120px;
+}
+
+.year-cell {
+	color: var(--accent-alt);
+}
+
 .title-col {
-	width: 50%;
+	width: 45%;
 }
 
 .title h1 {
@@ -470,6 +575,24 @@ td {
 	width: 25%;
 }
 
+.chevron-col,
+.chevron-cell {
+	width: 56px;
+}
+
+.chevron-cell {
+	text-align: right;
+}
+
+.chevron-icon {
+	width: 24px;
+	height: 24px;
+}
+
+.toprow[aria-expanded="true"] .chevron-icon {
+	transform: rotate(180deg);
+}
+
 tbody tr:first-child td {
 	padding-top: 16px;
   }
@@ -478,6 +601,7 @@ tbody tr:first-child td {
 .toprow {
 	border-top: 6px solid var(--accent);
 	line-height: 125%;
+	cursor: pointer;
 }
 
 /* hidden by default (desktop) */
@@ -517,6 +641,10 @@ tbody tr:first-child td {
 
 .bold {
 	font-weight: 700;
+}
+
+.width-50 {
+	width: 50%;
 }
 
 
@@ -645,9 +773,9 @@ tbody tr:first-child td {
 		width: 70%;
 	}
 
-	th:nth-child(2),
+	th:nth-child(1),
 	th:nth-child(3),
-	td:nth-child(2),
+	td:nth-child(1),
 	td:nth-child(3) {
 	  display: none;
 	}
@@ -655,6 +783,10 @@ tbody tr:first-child td {
 	.toggle-btn, th {
 		font-size: 24px;
 		pointer-events: none;
+	}
+
+	.chevron-icon {
+		transform: rotate(-90deg) !important;
 	}
 
 	.badge-new, .badge-upcoming {
@@ -684,6 +816,10 @@ tbody tr:first-child td {
 		font-size: 24px;
 	}
 
+	.blog-footer a {
+		font-size: 28px;
+	}
+
 	.stills {
 		margin-top: 36px;
 		margin-bottom: 36px;
@@ -695,6 +831,7 @@ tbody tr:first-child td {
 		margin-left: 8px;
 		margin-right: 8px;
 	}
+
 }
 
 

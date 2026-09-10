@@ -1,7 +1,7 @@
 ---
-title: 'Jul i højhuset'
+title: 'Lost at Sea'
 description: 'On Amager, in a demolition-threatened seventeen-storey high-rise with an internal telephone system, shared kitchen facilities, its own bar, a mini-market and 240 apartments, socially vulnerable residents, workers and young students live side by side in a shared community.'
-year: '2017'
+year: '2027'
 role: 'Director'
 vimeoID: '1009202696'
 still01: '../../assets/blog-placeholder-1.jpg'
@@ -17,7 +17,7 @@ externalLink02: 'https://www.imdb.com/title/tt14551690/'
 externalLink03text: ''
 externalLink03: ''
 ny: false
-upcoming: false
+upcoming: true
 ---
 
 Danish television documentary series (2017), 3 episodes, Danish Broadcasting Corporation (DR)

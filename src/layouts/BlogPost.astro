@@ -5,10 +5,12 @@ import Header from '../components/Header.astro';
 // import Footer from '../components/Footer.astro';
 // import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import chevronDown from '../assets/chevron-down.svg';
+import closeIcon from '../assets/close.svg';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { nextHref: string };
 
-const { title, description, year, role, video, vimeoID, still01, still02, still03, still04, still05, still06, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03, ny, upcoming} = Astro.props;
+const { title, description, year, role, video, vimeoID, still01, still02, still03, still04, still05, still06, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03, ny, upcoming, nextHref} = Astro.props;
 const stills = [
   still01,
   still02,
@@ -84,8 +86,6 @@ const stills = [
 					<div class="title">
 						<!-- <div class="date">{year}</div> -->
 						<h1>{title}</h1>
-						{ny? <span id="blog-badge" class="badge-new">New</span> : null}
-						{upcoming? <span class="badge-upcoming">Upcoming</span> : null}
 					</div>
 
 					<section id="description-section" class="description-section">
@@ -98,12 +98,23 @@ const stills = [
 								</div>
 							</div>
 							<div class="about-links">
-								<h2 class="accent-alt">About</h2>
+								<h2 class="accent-alt">Links</h2>
 								<div class="about-link-list">
-									<p>{role} ({year})</p>
+									<!-- {ny? <div id="blog-badge" class="badge-new">New</div> : null}
+									{upcoming? <div class="badge-upcoming">Upcoming</div> : null} -->
+									<!-- <p>{role} ({year})</p>
+									<div>Genre: {genre}</div>
+									<div>Running time: {runningTime}</div>
+									<div>Broadcaster: {broadcaster}</div>
+									<div>Countries of production: {countriesOfProduction}</div>
+									<div>Credits: {credits}</div> -->
 									<a href={externalLink01} class="accent-alt">{externalLink01text}<span> ↗</span></a>
 									<a href={externalLink02} class="accent-alt">{externalLink02text}<span> ↗</span></a>
-									<a href={externalLink03} class="accent-alt">{externalLink03text}<span> ↗</span></a>
+									<a href={externalLink03} class="accent-alt">
+										{externalLink03text}
+										{externalLink03text ? <span> ↗</span> : null}
+									</a>
+									<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/IMDb_logo.svg/3840px-IMDb_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"> -->
 								</div>
 							</div>
 						</div>
@@ -117,7 +128,7 @@ const stills = [
 					  
 							<div class="stills">
 							  {stills.map((still) => (
-								<div class="still">
+								<div class="still" tabindex="0" role="button" aria-label="View larger image">
 									<Image width={1020} height={510} src={still} alt="" />
 									</div>
 							  ))}
@@ -128,39 +139,122 @@ const stills = [
 
 					<!-- Lightbox -->
 					<div id="lightbox" class="lightbox">
-						<button class="lightbox-close">×</button>
+						<button class="lightbox-close" aria-label="Close">
+						<img class="lightbox-close-icon" src={closeIcon.src} alt="" aria-hidden="true" />
+					</button>
+						{stills.length > 1 && (
+							<button class="lightbox-nav lightbox-prev" aria-label="Previous still">
+								<img class="lightbox-nav-icon" src={chevronDown.src} alt="" aria-hidden="true" />
+							</button>
+						)}
 						<img id="lightbox-img" src="" alt="" />
+						{stills.length > 1 && (
+							<button class="lightbox-nav lightbox-next" aria-label="Next still">
+								<img class="lightbox-nav-icon" src={chevronDown.src} alt="" aria-hidden="true" />
+							</button>
+						)}
 					</div>
+
+					<div class="blog-footer-divider"></div>
+
+					<footer class="blog-footer">
+						<a class="accent-alt underline bold" href={nextHref}>
+							View next <span class="arrow">→</span>
+						</a>
+						<a class="accent-alt underline bold" href="#" id="back-to-top">
+							Back to top <span class="arrow">↑</span>
+						</a>
+					</footer>
 
 				</div>
 		</main>
 		<script is:inline>
+			document.getElementById('back-to-top')?.addEventListener('click', (e) => {
+			  e.preventDefault();
+			  window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+
 			const lightbox = document.getElementById('lightbox');
 			const lightboxImg = document.getElementById('lightbox-img');
 			const closeBtn = document.querySelector('.lightbox-close');
-		  
-			document.querySelectorAll('.still img').forEach((img) => {
-			  img.addEventListener('click', () => {
-				if (!lightbox || !lightboxImg) return;
-				lightboxImg.src = img.src;
+			const prevBtn = document.querySelector('.lightbox-prev');
+			const nextBtn = document.querySelector('.lightbox-next');
+
+			const stillEls = Array.from(document.querySelectorAll('.still'));
+			const stillSrcs = stillEls.map((el) => el.querySelector('img').src);
+			let currentIndex = 0;
+
+			function showStill(index) {
+			  if (!lightboxImg || stillSrcs.length === 0) return;
+			  currentIndex = (index + stillSrcs.length) % stillSrcs.length;
+			  lightboxImg.src = stillSrcs[currentIndex];
+			}
+
+			stillEls.forEach((el, index) => {
+			  el.addEventListener('click', () => {
+				if (!lightbox) return;
+				showStill(index);
+				lightbox.classList.add('open');
+			  });
+
+			  el.addEventListener('keydown', (e) => {
+				if (e.key !== 'Enter' && e.key !== ' ') return;
+				e.preventDefault();
+				if (!lightbox) return;
+				showStill(index);
 				lightbox.classList.add('open');
 			  });
 			});
-		  
+
+			prevBtn?.addEventListener('click', (e) => {
+			  e.stopPropagation();
+			  showStill(currentIndex - 1);
+			});
+
+			nextBtn?.addEventListener('click', (e) => {
+			  e.stopPropagation();
+			  showStill(currentIndex + 1);
+			});
+
 			closeBtn?.addEventListener('click', () => {
 			  lightbox?.classList.remove('open');
 			});
-		  
+
 			lightbox?.addEventListener('click', (e) => {
 			  if (e.target === lightbox) {
 				lightbox.classList.remove('open');
 			  }
 			});
-		  
-			// --- ESC key listener ---
+
+			// --- Swipe navigation while open ---
+			const SWIPE_THRESHOLD = 50;
+			let touchStartX = 0;
+			let touchEndX = 0;
+
+			lightbox?.addEventListener('touchstart', (e) => {
+			  touchStartX = e.changedTouches[0].screenX;
+			}, { passive: true });
+
+			lightbox?.addEventListener('touchend', (e) => {
+			  touchEndX = e.changedTouches[0].screenX;
+			  const delta = touchEndX - touchStartX;
+			  if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+			  if (delta < 0) {
+				showStill(currentIndex + 1);
+			  } else {
+				showStill(currentIndex - 1);
+			  }
+			});
+
+			// --- Keyboard navigation while open ---
 			document.addEventListener('keydown', (e) => {
+			  if (!lightbox?.classList.contains('open')) return;
 			  if (e.key === 'Escape') {
-				lightbox?.classList.remove('open');
+				lightbox.classList.remove('open');
+			  } else if (e.key === 'ArrowRight') {
+				showStill(currentIndex + 1);
+			  } else if (e.key === 'ArrowLeft') {
+				showStill(currentIndex - 1);
 			  }
 			});
 		  </script>

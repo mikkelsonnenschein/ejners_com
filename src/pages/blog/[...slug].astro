@@ -2,20 +2,34 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
+import config from '../../../astro.config.mjs';
+
+const BASE = config.base || '/';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'blog'>;
+	const posts = (await getCollection('blog'))
+		.filter((post) => post.data.title.toLowerCase() !== 'about')
+		.sort((a, b) => {
+			const yearA = Number(a.data.year) || 0;
+			const yearB = Number(b.data.year) || 0;
+			return yearB - yearA;
+		});
 
-const post = Astro.props;
+	return posts.map((post, index) => {
+		const nextPost = posts[(index + 1) % posts.length];
+		return {
+			params: { slug: post.id },
+			props: { post, nextId: nextPost.id },
+		};
+	});
+}
+type Props = { post: CollectionEntry<'blog'>; nextId: string };
+
+const { post, nextId } = Astro.props;
 const { Content } = await render(post);
+const nextHref = `${BASE}blog/${nextId}/`;
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} nextHref={nextHref}>
 	<Content />
 </BlogPost>
