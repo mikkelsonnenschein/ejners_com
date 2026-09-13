@@ -770,6 +770,13 @@ tbody tr:first-child td {
 		position: relative;
 	}
 
+	/* Let .row-link's containing block bubble up to the row (.toprow)
+	   instead of just this cell, so the tap target covers the whole
+	   row, chevron included. */
+	.toprow td.link-cell {
+		position: static;
+	}
+
 	td {
 		padding-top: 10px;
 		padding-bottom: 16px;
