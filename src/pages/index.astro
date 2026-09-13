@@ -27,6 +27,7 @@ const BASE = config.base || '/';
 import chevronDown from '../assets/chevron-down.svg';
 import playIcon from '../assets/play.svg';
 import arrowRightIcon from '../assets/arrow-right.svg';
+import profilePicture from '../assets/ejner-seidelin_profile-picture.png';
 
 
 const sortableYear = (year?: string) => {
@@ -215,7 +216,7 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 					<div class="about-links">
 						<h2 class="accent-alt">Contact</h2>
 						<div class="about-link-list">
-							<img src="/src/assets/ejner-seidelin_profile-picture.png">
+							<img src={profilePicture.src} alt="">
 							<!-- <a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a> -->
 							<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗</span></a>
 							<!-- <a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>							 -->

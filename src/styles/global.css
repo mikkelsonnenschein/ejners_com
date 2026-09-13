@@ -400,6 +400,7 @@ li {
 
 #bio-body p {
 	margin: 0;
+	padding-top: 28px;
 }
 
 #bio-body p:not(:first-of-type) {
@@ -428,6 +429,7 @@ li {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
+	padding-top: 16px;
 }
 
 .about-link-list a{
