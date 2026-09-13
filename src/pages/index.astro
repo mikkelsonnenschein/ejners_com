@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import CrtSlideshow from '../components/CrtSlideshow.astro';
 import { getEntry, render } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
@@ -24,12 +25,17 @@ import config from '../../astro.config.mjs';
 const BASE = config.base || '/';
 
 import chevronDown from '../assets/chevron-down.svg';
+import playIcon from '../assets/play.svg';
+import arrowRightIcon from '../assets/arrow-right.svg';
 
+
+const sortableYear = (year?: string) => {
+  if (year?.trim().toUpperCase() === 'TBA') return Infinity;
+  return Number(year) || 0;
+};
 
 const posts = (await getCollection('blog')).sort((a, b) => {
-  const yearA = Number(a.data.year) || 0;
-  const yearB = Number(b.data.year) || 0;
-  return yearB - yearA;
+  return sortableYear(b.data.year) - sortableYear(a.data.year);
 });
 
 ---
@@ -40,6 +46,9 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
+		<div class="crt-hero">
+			<CrtSlideshow />
+		</div>
 		<Header/>
 		<!-- <div class="header">
 			<h1 class="accent">Ejner Seidelin</h1>
@@ -66,16 +75,6 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 				}
 			  </div> -->
 
-
-			<div class="hero">
-				<div class="hero-item">
-					<video width="auto" height="auto" playsinline webkit-playsinline autoplay muted loop>
-					  	<!-- <source src={aboutPost?.data.video} type="video/mp4" /> -->
-					  	<source src={`${BASE}${aboutPost?.data.video}`} type="video/mp4" />
-					</video>
-				</div>
-			</div>
-			  
 
 			<div class="table-wrapper">
 				<table>
@@ -135,19 +134,25 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 										<div class="details-content">
 										  <div class="details-content-container">
 											<p>{post.data.description}</p>
-											<a class="accent-alt underline bold" href={`${BASE}blog/${post.id}/`}>
-  												Read more <span class="arrow">→</span>
+											<a class="accent-alt underline bold" href={`${BASE}blog/${post.id}/${post.data.vimeoID ? '?autoplay=1' : ''}`}>
+  												See more <span class="arrow">→</span>
 											</a>
 										  </div>
-							
+
 										  {post.data.still01 && (
-											<a href={`${BASE}blog/${post.id}/`} class="table-thumbnail-link" aria-label={`Read more about ${post.data.title}`}>
+											<a href={`${BASE}blog/${post.id}/${post.data.vimeoID ? '?autoplay=1' : ''}`} class="table-thumbnail-link" aria-label={`Read more about ${post.data.title}`}>
 												<Image
 												  class="table-thumbnail"
 												  width={824}
 												  height={460}
 												  src={post.data.still01}
 												  alt=""
+												/>
+												<img
+												  class="table-thumbnail-play"
+												  src={post.data.vimeoID ? playIcon.src : arrowRightIcon.src}
+												  alt=""
+												  aria-hidden="true"
 												/>
 											</a>
 										  )}
@@ -211,10 +216,10 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 						<h2 class="accent-alt">Contact</h2>
 						<div class="about-link-list">
 							<img src="/src/assets/ejner-seidelin_profile-picture.png">
-							<a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a>
+							<!-- <a href={aboutPost?.data.externalLink01} class="accent-alt">{aboutPost?.data.externalLink01text}<span> ↗</span></a> -->
 							<a href={aboutPost?.data.externalLink02} class="accent-alt">{aboutPost?.data.externalLink02text}<span> ↗</span></a>
-							<a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>							
-							<div class="about-body accent-alt">– <br> ejner.seidelin@gmail.com</div>
+							<!-- <a href={aboutPost?.data.externalLink03} class="accent-alt">{aboutPost?.data.externalLink03text}<span> ↗</span></a>							 -->
+							<div class="about-body accent-alt">ejner.seidelin@gmail.com</div>
 						</div>
 					</div>
 				</div>

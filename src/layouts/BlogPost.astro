@@ -11,6 +11,11 @@ import closeIcon from '../assets/close.svg';
 type Props = CollectionEntry<'blog'>['data'] & { nextHref: string };
 
 const { title, description, year, role, video, vimeoID, still01, still02, still03, still04, still05, still06, externalLink01text, externalLink01, externalLink02text, externalLink02, externalLink03text, externalLink03, ny, upcoming, nextHref} = Astro.props;
+const externalLinks = [
+  { text: externalLink01text, href: externalLink01 },
+  { text: externalLink02text, href: externalLink02 },
+  { text: externalLink03text, href: externalLink03 },
+].filter((link): link is { text: string; href: string } => Boolean(link.text && link.href));
 const stills = [
   still01,
   still02,
@@ -70,17 +75,21 @@ const stills = [
 		<Header/>
 		
 		<main class="blog-main">
-				<div class="blog-video">
-					<!-- {still01 && <Image width={1020} height={510} src={still01} alt="" />} -->
-					<!-- <iframe title="vimeo-player" src="https://player.vimeo.com/video/1009202733?h=8fa1fe3e88" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> -->
-					<iframe 
-						title="vimeo-player"
-						src=`https://player.vimeo.com/video/${vimeoID}?h=8fa1fe3e88` 
-						frameborder="0"
-						referrerpolicy="strict-origin-when-cross-origin" 
-						allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   
-						allowfullscreen>
-					</iframe>
+				<div class:list={['blog-video', !vimeoID && 'blog-video--image-only']}>
+					{vimeoID ? (
+						<iframe
+							id="vimeo-player"
+							title="vimeo-player"
+							data-src-base=`https://player.vimeo.com/video/${vimeoID}?h=8fa1fe3e88`
+							src=`https://player.vimeo.com/video/${vimeoID}?h=8fa1fe3e88`
+							frameborder="0"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+							allowfullscreen>
+						</iframe>
+					) : (
+						still01 && <Image class="blog-video-hero-image" width={1512} height={850} src={still01} alt="" />
+					)}
 				</div>
 				<div class="blog-content">
 					<div class="title">
@@ -108,12 +117,13 @@ const stills = [
 									<div>Broadcaster: {broadcaster}</div>
 									<div>Countries of production: {countriesOfProduction}</div>
 									<div>Credits: {credits}</div> -->
-									<a href={externalLink01} class="accent-alt">{externalLink01text}<span> ↗</span></a>
-									<a href={externalLink02} class="accent-alt">{externalLink02text}<span> ↗</span></a>
-									<a href={externalLink03} class="accent-alt">
-										{externalLink03text}
-										{externalLink03text ? <span> ↗</span> : null}
-									</a>
+									{externalLinks.length > 0 ? (
+										externalLinks.map((link) => (
+											<a href={link.href} class="accent-alt">{link.text}<span> ↗</span></a>
+										))
+									) : (
+										<span class="accent-alt about-link-list-empty">–</span>
+									)}
 									<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/IMDb_logo.svg/3840px-IMDb_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"> -->
 								</div>
 							</div>
@@ -169,6 +179,14 @@ const stills = [
 				</div>
 		</main>
 		<script is:inline>
+			if (new URLSearchParams(window.location.search).get('autoplay') === '1') {
+				const vimeoPlayer = document.getElementById('vimeo-player');
+				const srcBase = vimeoPlayer?.getAttribute('data-src-base');
+				if (vimeoPlayer && srcBase) {
+					vimeoPlayer.setAttribute('src', `${srcBase}&autoplay=1&muted=1`);
+				}
+			}
+
 			document.getElementById('back-to-top')?.addEventListener('click', (e) => {
 			  e.preventDefault();
 			  window.scrollTo({ top: 0, behavior: 'smooth' });
