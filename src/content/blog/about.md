@@ -5,7 +5,9 @@ video: 'placeholder_reel.mp4'
 externalLink01text: 'Mail'
 externalLink01: 'https://www.imdb.com/title/tt5563860/'
 externalLink02text: 'IMDB'
-externalLink02: 'https://www.youtube.com/playlist?list=PLdJdJFLAYgZUH_SujZ0X6eZJC16e7yPGR'
+externalLink02: 'https://www.imdb.com/name/nm7045795/'
+# externalLink03text: 'LinkedIn'
+# externalLink03: 'https://www.dr.dk/drtv/serie/aeterens-aegte-originaler_6753'
 ---
 
 Ejner Benedict Seidelin (b. 1992) is a Danish documentary director and a graduate of the National Film School of Denmark. 

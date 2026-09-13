@@ -186,11 +186,20 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 					content.hidden = expanded;
 				  };
 
+				  const isMobile = () => window.matchMedia("(max-width: 720px)").matches;
+
 				  row.addEventListener("click", (event) => {
-					// Mobile rows are covered by a direct link (.row-link);
-					// let that navigate instead of toggling the accordion.
 					const target = event.target as HTMLElement | null;
+					// A real <a> in the row (e.g. .row-link) handles its own navigation.
 					if (target?.closest("a")) return;
+
+					if (isMobile()) {
+					  // Whole row is tappable on mobile: navigate instead of toggling.
+					  const href = row.querySelector<HTMLAnchorElement>(".row-link")?.getAttribute("href");
+					  if (href) window.location.href = href;
+					  return;
+					}
+
 					toggle();
 				  });
 

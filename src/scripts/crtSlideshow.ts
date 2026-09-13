@@ -60,7 +60,11 @@ void main() {
 	float timeBucket = floor(u_time * 6.0);
 	float tearSeed = hash(vec2(band, timeBucket));
 	float tearActive = step(0.94, hash(vec2(band * 3.1, timeBucket + 11.0)));
-	float tearOffset = (tearSeed - 0.5) * 0.012 * u_fuzz * tearActive;
+	// Pixel-based, not UV-fraction: keeps the shift equally visible on a
+	// narrow mobile canvas instead of shrinking with canvas width.
+	float maxTearPx = 22.0;
+	float tearOffsetPx = (tearSeed - 0.5) * maxTearPx * u_fuzz * tearActive;
+	float tearOffset = tearOffsetPx / u_resolution.x;
 	vec2 tornUv = vec2(uv.x + tearOffset, uv.y);
 
 	// Faint chromatic aberration, stronger toward the edges.
