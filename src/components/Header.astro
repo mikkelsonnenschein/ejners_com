@@ -1,7 +1,5 @@
 ---
-// Import the base from Astro configuration
-import config from '../../astro.config.mjs';
-const BASE = config.base || '/';
+const BASE = import.meta.env.BASE_URL;
 ---
 
 <header>

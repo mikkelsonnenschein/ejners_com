@@ -20,14 +20,12 @@ if (!aboutPost) {
 // Rendering to allow for <Content />
 const { Content, headings} = await render(aboutPost);
 
-// Import the base from Astro configuration
-import config from '../../astro.config.mjs';
-const BASE = config.base || '/';
-
 import chevronDown from '../assets/chevron-down.svg';
 import playIcon from '../assets/play.svg';
 import arrowRightIcon from '../assets/arrow-right.svg';
 import profilePicture from '../assets/ejner-seidelin_profile-picture.png';
+
+const BASE = import.meta.env.BASE_URL;
 
 
 const sortableYear = (year?: string) => {

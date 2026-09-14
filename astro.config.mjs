@@ -5,7 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://mikkelsonnenschein.github.io',
-	base: process.env.NODE_ENV === 'production' ? '/ejners_com/' : '/',
+	site: 'https://ejnerseidelin.com',
 	integrations: [mdx(), sitemap()],
   });
