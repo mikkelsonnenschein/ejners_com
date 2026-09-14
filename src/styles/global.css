@@ -22,6 +22,7 @@ body {
 	text-align: left;
 	background-color: var(--background);
 	display: grid;
+	grid-template-columns: minmax(0, 1fr);
 	justify-content: center;
 	background-size: 100% 600px;
 	word-wrap: break-word;
@@ -162,6 +163,7 @@ li {
 	position: relative;
 	width: 100%;
 	max-width: 1512px;
+	margin: 0 auto;
 	padding-top: 56.25%; /* 16:9 ratio */
 }
 
@@ -183,7 +185,9 @@ li {
 }
 
 .blog-content {
+	width: 100%;
 	max-width: 1512px;
+	margin: 0 auto;
 	color: var(--accent);
 	display: flex;
 	flex-direction: column;
