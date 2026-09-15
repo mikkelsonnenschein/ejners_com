@@ -1,4 +1,3 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="128" height="128" fill="#FFEA00"/>
-<path d="M37 104V24H90.8439V37.9453H53.8945V57.0078H88.0737V70.9531H53.8945V90.0547H91V104H37Z" fill="black"/>
+<rect width="128" height="128" rx="64" fill="#54EBFF"/>
 </svg>
